@@ -1,16 +1,47 @@
 <template>
   <div id="calendar-entry">
     <div class="calendar-entry-note">
-      <input type="text" placeholder="New Event" />
-      <p class="calendar-entry-day">Day of event: <span class="bold">Monday</span></p>
-      <a class="button is-primary is-small is-outlined">Submit</a>
+      <input type="text" placeholder="New Event" v-model="newEvent" required/>
+      <p class="calendar-entry-day">
+        Day of event: <span class="bold"> {{ titleOfActiveDay }}</span>
+      </p>
+      <a class="button is-primary is-small is-outlined" @click="submitEvent(newEvent)">
+        Submit
+      </a>
     </div>
+    <p style="color: red; font-size: 13px" v-if="error">
+      Please enter an entry first!
+    </p>
   </div>
 </template>
 
 <script>
+
+import { store } from "../store";
+
 export default {
-  name: 'CalenderEntry'
+  name: 'CalenderEntry',
+  data () {
+    return {
+      newEvent: '',
+      error: false,
+    }
+  },
+  computed: {
+    titleOfActiveDay() {
+      // if (this.newEvent == '') this.error = false;
+      return store.getActiveDay().fullTitle;
+    }
+  },
+  methods: {
+    submitEvent(eventDetails) {
+      if (eventDetails === '') return this.error = true;
+
+      store.submitEvent(eventDetails);
+      this.newEvent = '';
+      this.error = false
+    }
+  }
 }
 </script>
 
