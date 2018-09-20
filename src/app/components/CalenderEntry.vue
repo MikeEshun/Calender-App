@@ -21,12 +21,10 @@ import { store } from "../store";
 
 export default {
   name: 'CalenderEntry',
-  data () {
-    return {
-      newEventEntry: '',
-      error: false,
-    }
-  },
+  data: () => ({
+    newEventEntry: '',
+    error: false
+  }) ,
   computed: {
     titleOfActiveDay() {
       // this.newEventEntry == '' ? this.error = false : this.error = true;

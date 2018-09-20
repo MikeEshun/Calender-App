@@ -17,11 +17,9 @@ import CalenderDay from './CalenderDay'
 
 export default {
   name: 'CalenderWeek',
-  data () {
-    return {
-      sharedState: store.state
-    }
-  },
+  data: () => ({
+    sharedState: store.state
+  }),
   components: {
     CalenderDay
   }
