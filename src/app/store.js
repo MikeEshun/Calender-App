@@ -18,5 +18,39 @@ export const store = {
       'details': eventDetails,
       'edit': false,
     });
+  },
+  getDay(dayId) {
+    return this.state.seedData.find(
+      day => day.id === dayId
+    );
+  },
+  getEventObj(dayId, eventDetails) {
+    const dayObj = this.getDay(dayId);
+
+    return dayObj.events.find(
+      event => event.details === eventDetails
+    );
+
+  },
+  enableEventEdit(dayId, eventDetails) {
+    const eventObj = this.getEventObj(dayId, eventDetails);
+    
+    return eventObj.edit = true;
+  },
+  updateEvent(dayId, oldEvent, newEvent) {
+    const eventObj = this.getEventObj(dayId, oldEvent);
+
+    if (newEvent === ' ') return eventObj.details = oldEvent;
+
+    eventObj.details = newEvent;
+    eventObj.edit = false;
+  },
+  deleteEvent(dayId, eventDetails) {
+    const dayObj = this.getDay(dayId);
+    
+    const eventIndex = dayObj.events.findIndex(
+      event => event.details === eventDetails
+    );
+    dayObj.events.splice(eventIndex, 1);
   }
 }
