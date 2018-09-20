@@ -1,24 +1,54 @@
 <template>
   <div class="day-event" :style="getEventBackgroundColor">
-    <div>
+    <div v-if="!event.edit">
       <span class="has-text-centered details">{{ event.details }}</span> 
-      <div class="has-text-centered icons"><i class="fa fa-pencil-square edit-icon"></i> 
-        <i class="fa fa-trash-o delete-icon"></i>
+      <div class="has-text-centered icons">
+        <i class="fa fa-pencil-square edit-icon"
+          @click="enableEventEdit(day.id, event.details)">
+        </i> 
+        <i class="fa fa-trash-o delete-icon" @click="deleteEvent(day.id, event.details)"></i>
+      </div>
+    </div>
+    <div v-if="event.edit">
+      <input type="text" :placeholder="event.details" v-model="newEvent"/>
+      <div class="has-text-centered icons">
+        <i class="fa fa-check" @click="updateEvent(day.id, event.details, newEvent)"></i>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+import { store } from '../store';
+
 export default {
   name: "CalenderEvent",
   props: ["day", "event"],
+  data () {
+    return {
+      newEvent: ''
+    }
+  },
   computed: {
     getEventBackgroundColor() {
       const colors = ["#FF9999", "#85D6FF", "#99FF99"];
       let randomColor = colors[Math.floor(Math.random() * colors.length)];
       return `background-color: ${randomColor}`;
     }
+  },
+  methods: {
+    enableEventEdit(id, eventDetails) {
+      store.enableEventEdit(id, eventDetails);
+    },
+    updateEvent(dayId, oldEvent, newEvent) {
+      if (newEvent === '') newEvent = oldEvent;
+      store.updateEvent(dayId, oldEvent, newEvent);
+      this.newEvent = '';
+    },
+    deleteEvent(dayId, eventDetails) {
+      store.deleteEvent(dayId, eventDetails);
+    },
   }
 };
 </script>
