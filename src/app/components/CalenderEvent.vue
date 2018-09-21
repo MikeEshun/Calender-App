@@ -40,7 +40,7 @@ export default {
       store.enableEventEdit(id, eventDetails);
     },
     updateEvent(dayId, oldEvent, newEvent) {
-      if (newEvent === '') newEvent = oldEvent;
+      if (newEvent === '' || !newEvent.trim()) newEvent = oldEvent;
       store.updateEvent(dayId, oldEvent, newEvent);
       this.newEvent = '';
     },
