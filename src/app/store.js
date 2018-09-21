@@ -19,13 +19,13 @@ export const store = {
       'edit': false,
     });
   },
-  getDay(dayId) {
+  getDayObject(dayId) {
     return this.state.seedData.find(
       day => day.id === dayId
     );
   },
   getEventObj(dayId, eventDetails) {
-    const dayObj = this.getDay(dayId);
+    const dayObj = this.getDayObject(dayId);
 
     return dayObj.events.find(
       event => event.details === eventDetails
@@ -46,7 +46,7 @@ export const store = {
     eventObj.edit = false;
   },
   deleteEvent(dayId, eventDetails) {
-    const dayObj = this.getDay(dayId);
+    const dayObj = this.getDayObject(dayId);
     
     const eventIndex = dayObj.events.findIndex(
       event => event.details === eventDetails
