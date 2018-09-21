@@ -30,7 +30,6 @@ export const store = {
     return dayObject.events.find(
       event => event.details === eventDetails
     );
-
   },
   enableEventEdit(dayId, eventDetails) {
     const eventObj = this.getEventObject(dayId, eventDetails);
@@ -39,8 +38,6 @@ export const store = {
   },
   updateEvent(dayId, oldEvent, newEvent) {
     const eventObj = this.getEventObject(dayId, oldEvent);
-
-    if (newEvent === ' ') return eventObj.details = oldEvent;
 
     eventObj.details = newEvent;
     eventObj.edit = false;
