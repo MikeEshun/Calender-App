@@ -9,7 +9,7 @@
         Submit
       </a>
     </div>
-    <p style="color: red; font-size: 13px" v-if="error">
+    <p class="display-error" v-if="error">
       Please enter an entry first!
     </p>
   </div>
@@ -83,6 +83,11 @@ export default {
       display: block;
       margin: 0 auto;
     }
+  }
+
+  .display-error {
+    color: red;
+    font-size: 13px;
   }
 }
 </style>
